@@ -1,5 +1,9 @@
 -- Defines shared constants across Miriani plugins.
 
+-- Soundpack version
+VERSION = "2.0.1"
+
+
 -- Global table of walkstyle:
 walkStyle = {
   ["ambles"] = "amble",

@@ -13,7 +13,7 @@
    language="Lua"
    date_written="2021-04-12 15:47:28"
    requires="5.05"
-   version="1.0"
+   version="2.0"
    save_state="y"
    >
  <description trim="y">
@@ -103,7 +103,7 @@ require(GetInfo(60).."miriani/include")
 MSP, GMCP = 90, 201 
 timeout, link = 120
 script = 12
-version, registry = GetPluginInfo(GetPluginID(), 19), "toastush"
+registry = "toastush"
 
 -- Macros
 AcceleratorTo ("F10", 'cycle_audio_groups()', script) -- cycle sounds

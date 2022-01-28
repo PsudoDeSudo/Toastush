@@ -79,7 +79,7 @@ function speech_interrupt(line)
 end -- speech_interrupt
 
 function register()
-  Send("#$#REGISTER_SOUNDPACK "..registry.." | "..version.."\n")
+  Send("#$#REGISTER_SOUNDPACK "..registry.." | "..VERSION.."\n")
 end -- register
 
 function playstep (room_name, step)

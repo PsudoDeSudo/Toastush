@@ -543,7 +543,7 @@ function detect_updates_if_idling()
   local idling_minutes = 5
 
   if (os.time() > (last_command + (idling_minutes * 60)))
-  and (at_idling_location()) then
+ then
     -- I'm idling
     detect_updates()
   end
