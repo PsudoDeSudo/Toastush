@@ -22,7 +22,11 @@ end-- help
 
 function info(name, line, wc)
   local ID = GetPluginID()
-  notify("info", string.format("%s  --  version %s  --  Scripting-language: %s  -- Script-time: %s seconds", GetPluginInfo(ID, 1), GetPluginInfo(ID, 19), GetPluginInfo(ID, 5), GetPluginInfo(ID, 24)))
+  notify("info", string.format("%s  --  version %s  --  Scripting-language: %s  -- Script-time: %s seconds",
+  GetPluginInfo(ID, 1),
+  VERSION,
+  GetPluginInfo(ID, 5),
+  GetPluginInfo(ID, 24)))
 end -- info
 function configure(name, line, wc)
   smenu(wc[1] ~= "" and wc[1] or nil)
@@ -70,7 +74,7 @@ end -- open_link
 
 function mplay(file, group, interrupt)
   -- Miriani only play:
-  filepath = string.format("miriani/%s", file)
+  filepath = string.format(SOUNDPATH.."%s", file)
   play(filepath, group, interrupt)
 end -- mplay
 
@@ -105,13 +109,13 @@ function playstep (room_name, step)
 
   -- play sounds if environment is starship.
   if parent == "starship" then
-    mplay ("steps/starship/")
+    mplay ("steps/starship")
     return 1
   end -- if parent is starship
 
   -- play sound if environment is station 
   if parent == "station" then
-    mplay ("steps/station/")
+    mplay ("steps/station")
     return 1
   end -- if parent is station
 
@@ -121,7 +125,7 @@ function playstep (room_name, step)
 
   -- Stop here if aquatic
   if extra == "marine" or string.find (room_name, "aquatic") then
-    mplay ("steps/swim/")
+    mplay ("steps/swim")
     return
   end -- if aquatic
 
@@ -137,16 +141,9 @@ function playstep (room_name, step)
     room_name = "mud"
   end -- if mud
 
-  -- build the directory
-  local soundDir = utils.readdir (GetInfo(67).."sounds/steps/"..parent.."/"..location.."/"..room_name)
-
-  if (not soundDir) then
-    room_name = "misc"
-  end -- if nil sound_dir
-
   -- play sound if environment is room or planet
   if parent == "room" or parent == "planet" then
-    mplay ("steps/planet/"..location.."/"..room_name.."/") 
+    mplay ("steps/planet/"..location) 
     return 1
   end -- if parent is room or planet
 end -- playstep
@@ -154,7 +151,7 @@ end -- playstep
 function playsocial(name, line, wc)
   -- Try to match social to file
   -- Game shortens the social text depending on what user typed.
-  local socialtable = utils.readdir(config:get("SOUND_DIRECTORY").."miriani/social/"..wc[2].."/"..wc[1].."*"..config:get("EXTENTION")) 
+  local socialtable = utils.readdir(config:get("SOUND_DIRECTORY")..SOUNDPATH.."social/"..wc[2].."/"..wc[1].."*"..config:get("EXTENTION")) 
   -- check that table exists
   if type(socialtable) ~= 'table' then
     --Use a recursive check to find file in nuter directory.

@@ -13,7 +13,7 @@ ImportXML([=[
   <send>
    mplay ("misc/tradesmanSale")
    print ("[Tradesman Market] New Sale by %1: %2 %3 for %4 credits.")
-   channel ("[Tradesman Market] New Sale by %1: %2 %3 for %4 credits.")
+   channel ("market", "[Tradesman Market] New Sale by %1: %2 %3 for %4 credits.", {"market"})
   </send>
   </trigger>
 
@@ -36,7 +36,7 @@ ImportXML([=[
    end -- if
 
    print ("[Tradesman Market] %1 %2 %3 sale by "..diff.." credits. Price: %5")
-   channel ("[Tradesman Market] %1 %2 %3 sale by "..diff.." credits. Price: %5")
+   channel ("market", "[Tradesman Market] %1 %2 %3 sale by "..diff.." credits. Price: %5", {"market"})
   </send>
   </trigger>
 

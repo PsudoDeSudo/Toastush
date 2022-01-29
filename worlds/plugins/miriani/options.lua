@@ -1,5 +1,6 @@
 
 local options = {
+  archaeology_helper_dig = {descr="Buried artifact digging tracker.", value="no", group="archaeology"},
   computer_voice = {descr="Use computerized voice files.", value="no", group="general"},
   count_cannon = {descr="Count remaining cannon shots: Use the command WEAPON in a weapon's room to initialize.", value="no", group="combat"},
   count_praelor = {descr="Count the number of insectoids detected in a room.", value="no", group="combat"},

@@ -11,6 +11,7 @@ ImportXML([=[
    send_to="12"
    sequence="100"
   >
+  <send>stop()</send>
   </trigger>
 
   <trigger
@@ -690,5 +691,73 @@ ImportXML([=[
   </trigger>
 
 </triggers>
-
 ]=])
+
+-------------------------
+-- Global table of walkstyle:
+walkStyle = {
+  ["ambles"] = "amble",
+  ["boogies"] = "boogie",
+  ["bounces"] = "bounce",
+  ["canters"] = "canter",
+  ["clomps"] = "clomp",
+  ["crawls"] = "crawl",
+  ["creeps"] = "creep",
+  ["dances"] = "dance",
+  ["darts"] = "dart",
+  ["dashes"] = "dash",
+  ["drags"] = "drag",
+  ["flies"] = "fly",
+  ["floats"] = "float",
+  ["glides"] = "glide",
+  ["hastens"] = "hasten",
+  ["hobble"] = "hobble",
+  ["hops"] = "hop",
+  ["hurries"] = "hurry",
+  ["jogs"] = "jog",
+  ["leeps"] = "leap",
+  ["limps"] = "limp",
+  ["lumbers"] = "lumber",
+  ["marches"] = "march",
+  ["meanders"] = "meander",
+  ["moonwalks"] = "moonwalk",
+  ["moseys"] = "mosey",
+  ["plods"] = "plod",
+  ["parades"] = "parade",
+  ["perambulates"] = "perambulate",
+  ["prances"] = "prance",
+  ["races"] = "race",
+  ["runs"] = "run",
+  ["rushes"] = "rush",
+  ["sashays"] = "sashay",
+  ["saunters"] = "saunter",
+  ["scampers"] = "scamper",
+  ["scrambles"] = "scramble",
+  ["scurries"] = "scurry",
+  ["scuttles"] = "scuttle",
+  ["shuffles"] = "shuffle",
+  ["skates"] = "skate",
+  ["skips"] = "skip",
+  ["slinks"] = "slink",
+  ["slouches"] = "slouch",
+  ["sprints"] = "sprint",
+  ["staggers"] = "stagger",
+  ["stalks"] = "stalk",
+  ["stomps"] = "stomp",
+  ["storms"] = "storm",
+  ["strides"] = "stride",
+  ["strolls"] = "stroll",
+  ["struts"] = "strut",
+  ["stumbles"] = "stumble",
+  ["swaggers"] = "swagger",
+  ["swims"] = "swim",
+  ["tiptoes"] = "tiptoe",
+  ["traipses"] = "traipse",
+  ["tramps"] = "tramp",
+  ["trots"] = "trot",
+  ["trudges"] = "trudge",
+  ["twirls"] = "twirl",
+  ["waddles"] = "waddle",
+  ["walks"] = "walk"
+
+} -- table of walk-styles

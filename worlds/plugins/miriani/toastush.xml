@@ -22,14 +22,21 @@
 
     To get started with configuring the soundpack, type: `toastush:config'
     To view information about the currently running script type: `toastush:info'
-    To update plugins and download sound files type: `toastush:update'
+    To update plugins type: `update plugins' -- Note that this requires the plugins_updater.
+
 
     To view valid starmap filters type: `sm.help'
     To view valid scan filters type: `sc.help'
 
     To view this help type: `'toastush:help'
 
-    Once in the game, tune a metaf frequency communicator to 0.07 for player support.
+    Macros:
+    F10: Cycle audio groups.
+    Alt+F10: Toggle global mute.
+    F11: Decrease group volume.
+    F12: Increase group volume.
+ 
+    ** Once in the game, tune a metaf frequency communicator to 0.07 for in game support. **
 </description>
 </plugin>
 
@@ -98,28 +105,46 @@
 <script>
 <![CDATA[
 require("json")
-require(GetInfo(60).."miriani/include")
+
+relpath = (function()
+  local path = require("pl.path")
+  return string.gsub(path.relpath(
+  GetPluginInfo(GetPluginID(), 20)), 
+  "\\", "/").."/"
+end)() -- function
+
+require(relpath.."include")
 
 MSP, GMCP = 90, 201 
 timeout, link = 120
 script = 12
 registry = "toastush"
 
+
+---------------------
 -- Macros
 AcceleratorTo ("F10", 'cycle_audio_groups()', script) -- cycle sounds
 AcceleratorTo("ALT + F10", 'toggle_mute()', script)
 AcceleratorTo("F11", 'decrease_attribute("vol")', script)
 AcceleratorTo("F12", 'increase_attribute("vol")', script)
 
+
+---------------------
 -- script routines
-local options = require(GetInfo(60).."miriani/options")
+local options = require(relpath.."options")
 function OnPluginInstall()
   assert(config:init_options(options) == 0)
+
+    print("Welcome to the MUSHclient Miriani soundpac: [version: ", VERSION, "] For help see toastush:help.")
 end -- OnPluginInstall
 
 function OnPluginSaveState()
   config:save()
 end -- OnPluginSave
+
+function OnPluginConnect()
+  mplay("music/theme")
+end -- OnPluginConnect
 
 function OnPluginTelnetRequest (type, data)
   if data == "WILL" then
@@ -190,12 +215,12 @@ function msp_handler(info)
 end -- msp_handler
 
 function plugin_update_url()
-  local manifest = require(GetInfo(60).."miriani/plugin_manifest")
+  local manifest = require(relpath.."plugin_manifest")
   return table.concat(manifest, ";")
 end -- plugin_update_url
 
 function plugin_update_aux_url()
-  local manifest = require(GetInfo(60).."miriani/aux_manifest")
+  local manifest = require(relpath.."aux_manifest")
   return table.concat(manifest, ";")
 end -- plugin_update_aux_url
 

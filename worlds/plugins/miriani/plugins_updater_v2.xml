@@ -166,7 +166,7 @@ http://github.com/MateriaMagicaLLC/mm-mushclient-scripts
 <timers>
 
   <timer
-    enabled="y"
+    enabled="n"
     active_closed="y"
     hour="3"
     second="0.00"

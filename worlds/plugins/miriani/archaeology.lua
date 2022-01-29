@@ -53,6 +53,12 @@ ImportXML([=[
    if config:get_option("spam").value == "yes" then
      print("%1 feet")
    end  -- if
+
+   if config:get_option("archaeology_helper_dig").value == "yes" then
+     buried_artifact = tonumber("%1")
+     artifact_room = room
+   end -- if
+
   </send>
   </trigger>
 
@@ -63,8 +69,35 @@ ImportXML([=[
    regexp="y"
    send_to="12"
   >
-  <send>mplay("activity/archaeology/shovel")</send>
+  <send>
+   mplay("activity/archaeology/shovel")
+
+   if buried_artifact
+   and room == artifact_room then
+     buried_artifact = buried_artifact - 0.5
+   end -- if
+
+  </send>
   </trigger>
+
+  <trigger
+   enabled="y"
+   group="archaeology"
+   match="^You begin gently brushing dirt aside with a small brush\.$"
+   regexp="y"
+   send_to="12"
+  >
+  <send>
+   mplay("activity/archaeology/brush")
+
+   if buried_artifact
+   and room == artifact_room then
+     buried_artifact = buried_artifact - 0.1
+   end -- if
+
+  </send>
+  </trigger>
+
 
   <trigger
    enabled="y"
@@ -73,7 +106,13 @@ ImportXML([=[
    regexp="y"
    send_to="12"
   >
-  <send>mplay("activity/archaeology/find")</send>
+  <send>
+   mplay("activity/archaeology/find")
+
+   if buried_artifact or artifact_room then
+     buried_artifact, artifact_room = nil
+   end -- if
+  </send>
   </trigger>
 
   <trigger
@@ -93,7 +132,15 @@ ImportXML([=[
    regexp="y"
    send_to="12"
   >
-  <send>mplay("activity/archaeology/apparatus")</send>
+  <send>
+   mplay("activity/archaeology/apparatus")
+
+   if buried_artifact
+   and room == artifact_room then
+     buried_artifact = buried_artifact - 2.0
+   end -- if
+
+  </send>
   </trigger>
 
   <trigger
@@ -105,6 +152,22 @@ ImportXML([=[
   >
   <send>mplay("activity/archaeology/insect")</send>
   </trigger>
+
+  <trigger
+   enabled="y"
+   group="archaeology"
+   match="^You (?:wipe your brow and )?cease digging\.$"
+   regexp="y"
+   send_to="12"
+  >
+  <send>
+   if config:get_option("archaeology_helper_dig").value == "yes"
+   and buried_artifact then
+     print(buried_artifact, " feet.")
+   end -- if
+  </send>
+  </trigger>
+
 
 </triggers>
 ]=])
