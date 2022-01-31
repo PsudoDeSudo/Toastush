@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!DOCTYPE muclient>
-<!-- Saved on Thursday, January 27, 2022, 10:23 PM -->
+<!-- Saved on Monday, January 31, 2022, 2:28 PM -->
 <!-- MuClient version 5.05 -->
 <!-- Written by Nick Gammon -->
 <!-- Home Page: http://www.mushclient.com/ -->
@@ -8,7 +8,7 @@
 <world
    muclient_version="5.05"
    world_file_version="15"
-   date_saved="2022-01-27 22:23:26"
+   date_saved="2022-01-31 14:28:20"
 
    auto_say_override_prefix="-"
    auto_say_string="say "
@@ -108,7 +108,7 @@
 <triggers
    muclient_version="5.05"
    world_file_version="15"
-   date_saved="2022-01-27 22:23:26"
+   date_saved="2022-01-31 14:28:20"
   >
 </triggers>
 
@@ -117,7 +117,7 @@
 <aliases
    muclient_version="5.05"
    world_file_version="15"
-   date_saved="2022-01-27 22:23:26"
+   date_saved="2022-01-31 14:28:20"
   >
 </aliases>
 
@@ -126,7 +126,7 @@
 <timers
    muclient_version="5.05"
    world_file_version="15"
-   date_saved="2022-01-27 22:23:26"
+   date_saved="2022-01-31 14:28:20"
   >
 </timers>
 
@@ -135,7 +135,7 @@
 <macros
    muclient_version="5.05"
    world_file_version="15"
-   date_saved="2022-01-27 22:23:26"
+   date_saved="2022-01-31 14:28:20"
   >
 
   <macro name="up" type="send_now" >
@@ -229,7 +229,7 @@
 <variables
    muclient_version="5.05"
    world_file_version="15"
-   date_saved="2022-01-27 22:23:26"
+   date_saved="2022-01-31 14:28:20"
   >
 </variables>
 
@@ -238,7 +238,7 @@
 <colours
    muclient_version="5.05"
    world_file_version="15"
-   date_saved="2022-01-27 22:23:26"
+   date_saved="2022-01-31 14:28:20"
   >
 
 <ansi>
@@ -295,7 +295,7 @@
 <keypad
    muclient_version="5.05"
    world_file_version="15"
-   date_saved="2022-01-27 22:23:26"
+   date_saved="2022-01-31 14:28:20"
   >
 
   <key name="0" >
@@ -409,7 +409,7 @@
 <printing
    muclient_version="5.05"
    world_file_version="15"
-   date_saved="2022-01-27 22:23:26"
+   date_saved="2022-01-31 14:28:20"
   >
 
 <ansi>
@@ -439,6 +439,5 @@
 <include name="Omit_Blank_Lines.xml" plugin="y" />
 <include name="channel_history.xml" plugin="y" />
 <include name="miriani\toastush.xml" plugin="y" />
-<include name="miriani\indexer.xml" plugin="y" />
-<include name="miriani\plugins_updater_v2.xml" plugin="y" />
+<include name="miriani\updater.xml" plugin="y" />
 </muclient>

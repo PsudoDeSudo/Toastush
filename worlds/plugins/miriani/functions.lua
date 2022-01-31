@@ -175,5 +175,6 @@ function gagline(name, line, wc)
   if config:get_option("spam").value == "no" then
     print(line)
   end -- if
-  end -- gagline
+  return 1
+end -- gagline
 

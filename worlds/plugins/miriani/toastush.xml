@@ -22,7 +22,7 @@
 
     To get started with configuring the soundpack, type: `toastush:config'
     To view information about the currently running script type: `toastush:info'
-    To update plugins type: `update plugins' -- Note that this requires the plugins_updater.
+    To update plugins type: `update'
 
 
     To view valid starmap filters type: `sm.help'
@@ -100,6 +100,15 @@
   >
   </alias>
 
+  <alias
+   enabled="y"
+   script="gen_index"
+   match="^toastush:index (.+?)$"
+   ignore_case="y"
+   regexp="y"
+  >
+  </alias>
+
 </aliases>
 
 <script>
@@ -136,6 +145,11 @@ function OnPluginInstall()
   assert(config:init_options(options) == 0)
 
     print("Welcome to the MUSHclient Miriani soundpac: [version: ", VERSION, "] For help see toastush:help.")
+
+
+  -- janitor code
+  janitor()
+
 end -- OnPluginInstall
 
 function OnPluginSaveState()
@@ -174,6 +188,16 @@ function OnPluginCommandEntered()
     inMenu = false
   end -- if inMenu
 end -- OnPluginCommandEnter
+
+function OnPluginBroadcast(event, id, name, text)
+
+  if (id == UPDATE_ID) then
+    -- update detected.
+    gen_index(event, text, {INDEX})
+  end -- if
+
+end -- OnPluginBroadcast
+
 
 function gmcp_handler(data)
 
@@ -214,15 +238,36 @@ function msp_handler(info)
   play(info.file, info.type)
 end -- msp_handler
 
-function plugin_update_url()
-  local manifest = require(relpath.."plugin_manifest")
-  return table.concat(manifest, ";")
-end -- plugin_update_url
+function on_plugin_update()
+  --  Externally called to indicate this plugin should be reloaded upon updates.
+  return 1
+end -- on_plugin_update
 
-function plugin_update_aux_url()
-  local manifest = require(relpath.."aux_manifest")
-  return table.concat(manifest, ";")
-end -- plugin_update_aux_url
+function janitor()
+
+  -- plugins_updater no longer in use.
+
+  local old_plugins = {
+  ["fbd5b7cc1ef6acf827a3f4a1"] = "plugins_updater.xml",
+  ["55e1d330539761f176fa0815"] = "indexer.xml", 
+  } -- old_plugins
+
+  table.foreach(old_plugins,
+  function(id, name)
+    if (IsPluginInstalled(id)) then
+    print("plugin ", name, " is no longer in use. Unloading.")
+    UnloadPlugin(id)
+    end -- if
+  end ) -- foreach
+
+  -- need an index.
+  local path = require("pl.path")
+  if (not path.isfile(INDEX)) then
+    notify("critical", string.format(
+    "Warning: You appear to be missing the index file, '%s'. This file is necessary for updates. To generate the file now, type `toastush:index %s'", INDEX, INDEX))
+  end -- if
+
+end -- janitor
 
 
 

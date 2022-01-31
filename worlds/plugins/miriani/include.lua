@@ -5,10 +5,11 @@ require ("secretpack.src")
 
 local src = GetInfo(60).."miriani"
 
-dependencies = {
+local dependencies = {
   "constants", -- Global constants
   "functions", -- global functions
   "options", -- global options
+  "indexer", -- file indexer
   "hooks", -- Miriani soundpack hooks:
   "misc", -- misc triggers without any specific categorization
   "market", -- tradesman market procedures
@@ -20,6 +21,8 @@ dependencies = {
   "communication", -- Communication
   "vehicles", -- vehicles
   "archaeology", -- archaeology
+  "hauling", -- asteroid hauling
+
 } -- dependencies
 
 table.foreach(dependencies,
