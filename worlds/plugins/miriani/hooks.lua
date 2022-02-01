@@ -27,6 +27,67 @@ ImportXML([=[
 
   <trigger
    enabled="y"
+   name="starship"
+   group="hooks"
+   script="set_environment"
+   match="^#\$#soundpack environment starship (space|landed) \| (powered|unpowered) \| (hostile|safe) \| (light|dark) \| (indoors|outdoors) \| (.+?)$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+   </trigger>
+
+  <trigger
+   enabled="y"
+   name="planet"
+   group="hooks"
+   script="set_environment"
+   match="^#\$#soundpack environment planet (.+?) \| (hostile|safe) \| (light|dark) \| (indoors|outdoors) \| (.+?)$$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+   </trigger>
+
+  <trigger
+   enabled="y"
+   name="space"
+   group="hooks"
+   script="set_environment"
+   match="^#\$#soundpack environment space \| (hostile) \| (light|dark) \| (outdoors)$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+   </trigger>
+
+  <trigger
+   enabled="y"
+   name="station"
+   group="hooks"
+   script="set_environment"
+   match="^#\$#soundpack environment station \| (hostile|safe) \| (light|dark) \| (indoors|outdoors) \| (.+?)$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+   </trigger>
+
+
+  <trigger
+   enabled="y"
+   name="vehicle"
+   group="hooks"
+   script="set_environment"
+   match="^#\$#soundpack environment vehicle (landed|atmosphere) \| (.+?)$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+   </trigger>
+
+  <trigger
+   enabled="y"
    group="hooks"
    script="latency"
    match="^#\$#soundpack_lag (\d+)$"
@@ -36,34 +97,7 @@ ImportXML([=[
   >
   </trigger>
 
-  <trigger
-   enabled="y"
-   group="hooks"
-   match="^#\$#soundpack environment (planet|starship|room|station|vehicle|space) (\w+?\s?\w*)?\s?\|?\s?(powered|unpowered|landed|atmosphere)?\s?\|?\s?(safe|hostile|starship|asteroid)?\s?\|?\s?(light|dark)?\s?\|?\s?(outdoors|indoors)?.*$"
-   regexp="y"
-   send_to="12"
-   sequence="100"
-  >
-  <send>
-   if cameraFeed then
-    cameraFeed = false
-    return 0
-   end -- if camera view
 
-   environment = {
-   parent = "%1",
-   extra = "%2",
-   power = "%3",
-   lifeSupport = "%4",
-   lighting = "%5",
-   location = "%6"
-   } -- Set the environment
-   if foundstep then
-    playstep (room, style)
-    foundstep = false
-   end -- if moving
-  </send>
-  </trigger>
 
   <trigger
    enabled="y"
@@ -75,6 +109,31 @@ ImportXML([=[
    sequence="100"
   >
   </trigger>
+
+  <trigger
+   enabled="y"
+   group="hooks"
+   match="^#\$#soundpack lore \| (.+?)$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>lore = string.lower("%1")</send>
+  </trigger>
+
+  <trigger
+   enabled="y"
+   group="hooks"
+   match="^#\$#soundpack video_feed$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>mplay("device/camera")</send>
+  </trigger>
+
+
+
 
 </triggers>
 ]=])

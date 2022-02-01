@@ -22,7 +22,8 @@
 
     To get started with configuring the soundpack, type: `toastush:config'
     To view information about the currently running script type: `toastush:info'
-    To update plugins type: `update'
+    To fetch updates type: `update'
+      - More help about using the updater can be found by typing `update --help'
 
 
     To view valid starmap filters type: `sm.help'

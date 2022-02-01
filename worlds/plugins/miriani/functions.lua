@@ -86,66 +86,102 @@ function register()
   Send("#$#REGISTER_SOUNDPACK "..registry.." | "..VERSION.."\n")
 end -- register
 
-function playstep (room_name, step)
-  room_name = room_name or "misc"
-  step = step or "Unset"
-  if environment then
-  parent, location, extra = environment["parent"], environment["location"], environment["extra"]
-  else
+function set_environment(name, line, wc)
+
+  -- iterate through a table of flags
+  -- and set all to true.
+  -- split any deliminated tags and make them into their own truth value.
+
+
+  environment = {}
+  for _, flag in ipairs(wc) do
+
+    environment.name = name
+    local names = utils.split(flag, " ")
+
+    table.foreach(names,
+    function(value)
+      environment[value] = true
+    end ) -- foreach
+  end -- for
+
+end -- set_environment
+
+function playstep()
+
+  if (not foundstep) or (not environment) or (not room) then
     return 0
   end -- if
 
-  -- Stop here is step is fly
-  if step == "fly" or step == "float" then
-    mmplay ("steps/fly")
+  foundstep = false
+
+  -- Stop here is footstep is fly
+  if footstep == "fly"
+  or footstep == "float" then
+    mplay("steps/fly")
     return 1
-  end -- if fly
+  end -- if
 
   --Stop here if you're in the ducts!
-  if string.find (room_name, "duct") then
+  if string.find (room, "duct") then
     mplay ("steps/duct")
     return 1
   end -- if in ducts
 
   -- play sounds if environment is starship.
-  if parent == "starship" then
+  if environment.name == "starship" then
     mplay ("steps/starship")
     return 1
-  end -- if parent is starship
+  end -- if
 
   -- play sound if environment is station 
-  if parent == "station" then
+  if environment.name == "station" then
     mplay ("steps/station")
     return 1
-  end -- if parent is station
+  end -- if
 
-  -- handle sounds different if room or planet.
   -- look for keywords to redirect to directory
-  -- If directory cannot be found, mplay misc folder
 
   -- Stop here if aquatic
-  if extra == "marine" or string.find (room_name, "aquatic") then
+  if environment.marine
+  or string.find (room, "aquatic") then
     mplay ("steps/swim")
-    return
-  end -- if aquatic
-
-  if string.find (room_name, "desert") or string.find (room_name, "beach") or string.find (room_name, "sand") or string.find (room_name, "shore") then
-    room_name = "desert"
-  end -- if desert
-
-  if string.find (room_name, "forest") or string.find (room_name, "field") or string.find (room_name, "park") or string.find (room_name, "woods") or string.find (room_name, "grassy") then
-    room_name = "forest"
-  end -- if forest
-
-  if string.find (room_name, "mud") or string.find (room_name, "river") or string.find (room_name, "lake") or string.find (room_name, "marsh") or string.find (room_name, "swamp") then
-    room_name = "mud"
-  end -- if mud
-
-  -- play sound if environment is room or planet
-  if parent == "room" or parent == "planet" then
-    mplay ("steps/planet/"..location) 
     return 1
-  end -- if parent is room or planet
+  end -- if
+
+  local rname = ""
+
+  local function set_rname(t, type)
+    local ok = 0
+    for _, keyword in ipairs(t) do
+      if string.find(string.lower(room), keyword) then
+        rname = type
+        ok = 1
+        break
+      end -- if
+    end -- for
+
+    return ok
+  end -- set_rname
+
+  local deserts = {"desert", "beach", "shore", "sand", "wasteland"}
+  local forests = {"forest", "woods", "field", "grass", "jungle", "glade", "dale", "farm", "glen"}
+  local muddy = {"mud", "swamp", "marsh"}
+ 
+  if set_rname(deserts, "desert") ==1
+  or set_rname(forests, "forest") == 1
+  or set_rname(muddy, "mud") == 1 then
+    mplay("steps/"..rname)
+    return 1
+  end -- if
+
+  if environment.indoors then
+    mplay("steps/planet/indoors")
+  else
+    mplay("steps/planet/outdoors")
+  end -- if
+
+  return 1
 end -- playstep
 
 function playsocial(name, line, wc)

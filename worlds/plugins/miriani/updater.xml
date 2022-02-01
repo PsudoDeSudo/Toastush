@@ -20,12 +20,36 @@ Portions of code sourced from plugins_updater for Materia Magica.
    requires="5.05"
    version="1.0"
    >
+   <description trim="y">
 
+    Syntax: update [options]
+      -c: Clean-Mode: Download and remove unindexed files.
+      -d: Dry-Run-Mode: Perform checksum and indicate updates.
+      -q: quiet-mode: Download and suppress noisy output.
+      -s: Safe-Mode: Download and keep a backup of updated files.
+      -v: Verbose-Mode: Download and print verbose output.
+
+    The updater compares a local index with a given remote index. After determining its equality to be false, the updater downloads the remote index and applies the changes.
+    During Clean-Mode, the updater will remove unindexed files, note that this process could be potentially destructive.
+    The updater's will override  any updated files while in its default mode. To prevent this, run the updater in Safe-Mode.
+    To view a list of pending changes without applying any, run the updater in Dry-Run-Mode.
+
+   </description>
 </plugin>
 <!--  Get our standard constants -->
 
 <include name="constants.lua"/>
 <aliases>
+
+  <alias
+  enabled="y"
+   script="OnHelp"
+   match="^update +(?:-h|--help)$"
+   regexp="y"
+   send_to="12"
+  >
+  </alias>
+
 
   <alias
   enabled="y"
@@ -61,35 +85,10 @@ function OnPluginInstall()
   async_ok, async = pcall(require, "async")
 end -- OnPluginInstall
 
-function OnPluginBroadcast(event, id, name, text)
+function OnHelp(name, line, wc)
+  print(GetPluginInfo(GetPluginID(), 3))
 
-  if (id ~= GetPluginID()) then
-    -- We're not concerned with this broadcast.
-    return 0
-  end -- if
-
-  -- Reload appropriate plugins.
-
-  local plugins = GetPluginList()
-
-  for _, plugin in ipairs(pplugins) do
-
-    if (id ~= plugin) then
-      local res = CallPlugin(plugin, "on_plugin_update")
-
-      if (res) then
-        local ok, msg = ReloadPlugin(plugin)
-
-        if ok ~= 0 then
-          -- Could not reload:
-          print(msg)
-        end -- if
-      end -- if
-    end -- if
-  end -- for
-
-  return 1
-end -- OnPluginBroadcast
+end -- OnHelp
 
 
 -------------------------
@@ -126,7 +125,7 @@ function detect_updates(name, line, wc)
       local remote_ok, remote_index = pcall(json.decode, file)
       local local_ok, local_index = pcall(json.decode, index_file_content)
 
-      -- Make sure we got valid json.
+      -- Did we get valid json.
       if (not local_ok) or (not remote_ok) then
         remote_index, local_index = {}, {}
         if not local_ok then print("> Error: Malformed JSON in local index.") end
@@ -163,7 +162,7 @@ function detect_updates(name, line, wc)
           " ", update_count, " files updated.")
 
           broadcast_event(create, delete, update)
-
+          reload_plugins()
         end -- if
       end -- if
 
@@ -360,6 +359,31 @@ function broadcast_event(create, delete, update)
 
   return ok
 end -- broadcast_event
+
+function reload_plugins()
+
+  local pid = GetPluginID()
+  local plugins = GetPluginList()
+
+  for _, id in ipairs(plugins) do
+
+    if (id ~= pid) then
+      local res, ret = CallPlugin(id, "on_plugin_update")
+
+      if (ret == 1) then
+        local ok, msg = ReloadPlugin(id)
+
+        if ok ~= 0 then
+          -- Could not reload:
+          print(msg)
+        end -- if
+      end -- if
+    end -- if
+  end -- for
+
+  return 1
+end -- reload_plugins
+
 
 -------------------------
 -- utils --

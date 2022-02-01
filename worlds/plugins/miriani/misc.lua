@@ -17,7 +17,7 @@ ImportXML([=[
   <trigger
    enabled="y"
    group="misc"
-   match="^(You|(?:[A-Z]\w+ )+) (\w+) (?:in from the|into the|through the)? ?(?:north|south|east|west|up|down|ship|airlock|outside|out|hatch)(?:east|west)?\.$"
+   match="^(([A-Z][a-z]+ ?)+) (?!stands?|sits?)(\w+) (?:in from the .+?|into the .+?|through the .+?|north|northeast|east|southeast|south|southwest|west|northwest|up|down)\.$"
    regexp="y"
    omit_from_output="y"
    keep_evaluating="y"
@@ -25,29 +25,46 @@ ImportXML([=[
    sequence="100"
   >
   <send>
-   foundstep, style = false, string.gsub ("%2", "%a+",
+   foundstep, footstep = false, string.gsub ("%3", "%a+",
     function (walk)
      return walkStyle[walk]
     end -- function replace walk
     ) -- string replacement
 
    for k,v in pairs (walkStyle) do
-    if style == v then
+    if footstep == v then
      foundstep = true
     break
           end -- if
    end -- for loop
-   if "%1" ~= "You" and foundstep then
 
+   if (not foundstep) then
+     print("%0")
+   elseif "%1" ~= "You" then
     -- others move around you.
-    foundstep = false
     print("%0")
-    playstep (room, style)
+    playstep ()
    else
-    -- Your movement will be picked up by soundpack hook
-
+    -- Your movement will be picked up by room_title
     gagline(name, "%0")
    end -- if movement
+  </send>
+  </trigger>
+
+  <trigger
+   enabled="y"
+   name="room_title"
+   script="playstep"
+   group="misc"
+   keep_evaluating="y"
+   match="^\[(.+?)\]( (\((indoors|outdoors)\))? ?(\((hostile environment|aquatic environment)\))?)?$"
+   regexp="y"
+   send_to="12"
+   sequence="50"
+  >
+  <send>
+   room = "%0"
+   cameraFeed = false
   </send>
   </trigger>
 
@@ -75,8 +92,8 @@ ImportXML([=[
    sequence="100"
   >
    <send>
-   if environment then
-    mplay ("wrongExit/"..environment["parent"])
+   if environment.name then
+    mplay ("wrongExit/"..environment.name)
    end -- if environment
   </send>
   </trigger>
@@ -156,7 +173,6 @@ ImportXML([=[
   <trigger
    enabled="y"
    group="misc"
-   script="gagline"
    match="^(\(.+\)) (.+?)$"
    regexp="y"
    omit_from_output="y"
@@ -165,6 +181,7 @@ ImportXML([=[
   >
   <send>
    mplay ("device/camera")
+
    if config:get_option("internal_camera").value == "no" then
     print("%2 %1")
    end -- if filtering camera
@@ -294,13 +311,27 @@ ImportXML([=[
   <trigger
    enabled="y"
    group="misc"
-   match="^A (?:.+?) Lore computer beeps (quietly|twice in rapid succession), indicating that its TransLink tracking functionality has been activated(?:.+?)?\."
+   match="^Your (.+?) suddenly beeps quietly, indicating a new incoming file\.$"
+   regexp="y"
+   send_to="12"
+  >
+  <send>mplay("device/lore/file")</send>
+  </trigger>
+
+  <trigger
+   enabled="y"
+   group="misc"
+   match="^(.+?) beeps (quietly|twice in rapid succession), indicating that its TransLink tracking functionality has been activated(?:.+?)?\."
    regexp="y"
    send_to="12"
    sequence="100"
   >
   <send>
-   if "%1" == "quietly" then
+if string.lower("%1") ~= lore then
+     return 0
+   end -- if
+
+   if "%2" == "quietly" then
     mplay ("device/lore/beep")
    else
     mplay ("device/lore/unauthTrack")

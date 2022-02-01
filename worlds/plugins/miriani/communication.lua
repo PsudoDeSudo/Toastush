@@ -25,7 +25,7 @@ ImportXML([=[
   <trigger
    enabled="y"
    group="comm"
-   match="^(?:A|From)\s?.* flight control scanner \w+, &quot;(.+?)&quot;$"
+   match="^(?:A|From).* flight control scanner \w+, &quot;(.+?)&quot;$"
    regexp="y"
   omit_from_output="y"
    send_to="14"
