@@ -101,7 +101,7 @@
 tfile = nil
 download_status = nil
 delay = 0.5
-update_url = "https://erosso.net/projects/files/toastush"
+update_url = "https://raw.githubusercontent.com/PsudoDeSudo/Toastush/main"
 index_file = "index-v5.manifest"
 check_update_url = string.format("%s/%s", update_url, index_file)
 
