@@ -523,13 +523,13 @@ function janitor()
   local path = require("pl.path")
   if (not path.isfile(INDEX)) then
     notify("critical", string.format(
-    "Warning: You appear to be missing the index file, '%s'. This file is necessary for updates. To generate the file now, type `toastush:index %s'", INDEX, INDEX))
+    "Warning: You appear to be missing the index file, '%s'. This file is necessary for updates. To generate the file now, type `index %s'", INDEX, INDEX))
   end -- if
 
   -- old version downloaded messy files.
   local dir = utils.readdir("*.ogg")
   local js = require("json.decode")
-  local f = io.open("index-v4.manifest", "r")
+  local f = io.open("index-v5.manifest", "r")
 
   if (f and dir) then
     local t = f:read("*all")
