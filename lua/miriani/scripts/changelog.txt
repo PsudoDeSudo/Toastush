@@ -1,0 +1,123 @@
+`Version 3.0
+
+  * Various organizational changes. Lets hope nothing weird breaks.
+
+
+
+Version 2.8
+
+    * Fixed old combat sounds playing at 100% volume. Thanks to Taylor Simon for reporting!
+    * Hopefully fixed issue that muted the pack when updating.
+    * Fixed bug with ship relay.
+
+Version 2.7
+
+    * Edited the config menu significantly. Users should go through the menu and adjust settings accordingly. Split options into different categories, added a new option for printing the word 'unchanged' before coordinates, 
+    * Separated audio for ship-based combat to the ship audio buffer. Renamed the previous combat buffer to melee to denote the difference.
+    * Added key binding: ALT+SHIFT+I to read out the info bar.
+    * Added the key bind: ALT+SHIFT+A to initialize (or reload) audio settings. This is helpful in cases where the soundcard or device changes.
+    * Added a minimal mode. Minimal mode deactivates the majority of triggers, leaving only communications and configurable gags. Type toastush:minimal to toggle it.
+    * Added three new audio groups: ship, computer, vehicle.
+    * Fixed sound not playing with starships exiting sectors.
+    * Possibly fixed an issue with Jaws echoing text that is presented on white on black. Changed the default color for it. Users should change default foreground and background if they're having similar issues.
+    * Added the @paste/@post alias for pasting blocks of text.
+    * Patched bug that played social after social volume was lowered to 0%. Thanks to Cody Ley for reporting!
+    * Enabling proxiani will now disable toastushstarmap commands.
+    * Patched bug with socials not playing properly on metafs.
+    * Various filters for the preparation of Proxiani.
+    * Various more bug fixes from the new color printing.
+    * Updated the way colored print is display to increase readability.
+    * Updated the infobar latency ping. It should no longer boot you out of menus.
+    * Rewrote weapon firing to be inline with the latest soundpack hooks.
+    * New sounds for footsteps and various rp things.
+    * Fixed bug that ocasionally dropped audio after changing audio devices.
+    * Fix regular laser/cannon sounds that broke with pirate day filter update. Hee hee!
+    * Let computer announcement work with pirate day filters.
+    * Fixed minor bug with cannons.
+    * long awaited hg lift.
+    * Fixed bugs with footstep and added transporters sounds.
+    * Some pool related rp sounds.
+    * Suborbital pods.
+    * Various new ambiances.
+    * Fixed the world's oldest bug with festive lasers.
+    * Pulse weaponery sounds.
+    * Various rp enhancing sounds.
+    * shift+f10 cycles back through audio buffers.
+    * Let certain events appear properly in the log.
+    * Sounds for gas and aquatic salvaging.
+    * fixed no sound with multiple certificate purchase.
+    * Activity sounds for asteroid mining.
+    * Fix some bugs with atmo combat vehicles.
+    * Set the ability to specify different file extensions for alternate sound files.
+    Adjust the variable named ALT_EXTENSION in plugins/miriani/constants.lua accordingly.
+    * Fixed bug with sound not playing for characters with double capitalizations in their sirnames.
+    * Minor changes to the feel of config menu.
+    * Added an option to download updates while idle.
+
+Version 2.6
+
+    * Disabled the F1 windows help keystroke (There's no real reason to keep this enable while Microsoft no longer supports it.)
+    * Configurable hyperlink colors
+    * Configurable colors for the infobar.
+    * Added star wavewarpped sound.
+    * Added hooks buffer (Possibly useful for developers)
+    * Fixed relay sound/buffer.
+    * Computer detection sounds for wormholes, anomalies and nebulae. 
+    * Added various configurable colors through the config menu. 
+    * Addded the ability to go back in the config menu with escape.
+    * Buckling sounds.
+    * Minor bug fix with archaeology.
+    * Reinstated handheld radio sounds. Not sure how they got lost again.
+    * Added some more socials.
+    * Jetting in space sounds.
+    * Added the ability to access alternate audio files for any given sound trigger. Simply create the sounds/alternate directory and locate any files there.
+      - Note that the file must be named exactly to the one indicated in the soundpack and the file extension must match that of the given soundpack extension, (as of this time .ogg)
+    * Fixed bug with lowered/raised sales in the tradesman market.
+    * Atmo sounds.
+    * Patch for updater to create new directories properly.
+    * Added sounds for praelor boarding.
+    * Added sounds for various praelor lifeforms.
+    * Added sounds for lifts. Only the most important changes.
+    * added a new audio group for loops (separate from ambiances)
+    * Added optional alerts for stores, digsites, and pending updates. See toastush:config audio
+    * Fixed bug with speech interrupt that tried to call the alias like a function.
+    * Added a buffer for the design channel.
+    * Added the alias toastush:updater-reload to easily reload the updater.
+    * Added the alias toastush:register to reissue registration command.
+    * Added the macro alt+shift+U to open recent URLs.
+    * Renamed link buffer to url. (Its more intuitive.)
+    * Readed the ping timer for the info-bar.
+    * Various fixes to the updater where capitalization kept files from being recreated.
+    * increased index manifest version.
+    * Added clean up code for version 2.6.2 and below in janitor code.
+    * Patched bug with indexer that didn't hash files. Wups.
+    * Fixed a bug with the updater that sometimes failed to create directories.
+    * Added sounds for ACV: navigation, boms, detonators and ordinates.
+
+Version 2.5
+
+    * updated manifest version, no longer using v2.
+    * Fix indexer bug that concatinated bad links for sounds depending on capitalization.
+    * Added marine planet underwater ambiance and water airlock sounds.
+    * Added some asteroid ambiance.
+    * Added some station ambiances.
+    * Various bug fixes with archaeology.
+    * Added ambiance for starship rooms.
+
+
+Version 2.2:
+
+    * Added the framework for playing ambiance. Sounds to come.
+    * Changed the wording (minimally) of secondary lock options to be less confusing.
+    * Changed computer voice and roundtime options to be under audio options. (It just makes more sense this way.)
+    * Added the Toastush option to open changelog in a notepad after applying updates.
+    * Added the alias toastush:changes to open the changelog directly.
+
+
+Version 2.0:
+    - Official release.
+
+    * Various bug fixes from version 1.2 (too numerous to list)
+    * Added the option to initialize audio as either stereo or mono.
+    * Allow audio groups to be configured outside of secretpack.
+
