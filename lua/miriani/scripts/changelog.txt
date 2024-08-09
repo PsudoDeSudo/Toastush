@@ -1,7 +1,10 @@
-`Version 3.0
+`Version 3.0.1
+
+  * Update the say trigger in `communication.lua` to be more forgiving. More importantly, text with certain punctuation that has been long lost to my failing memory will no longer cause a recursion depth error.
+
+Version 3.0
 
   * Various organizational changes. Lets hope nothing weird breaks.
-
 
 
 Version 2.8
