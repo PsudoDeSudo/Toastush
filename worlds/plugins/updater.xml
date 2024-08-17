@@ -252,7 +252,7 @@ function detect_updates(name, line, wc)
           "- ", create_count, " files created.",
           " ", delete_count, " files deleted.",
           " ", update_count, " files updated.")
-
+  generate_index(index_file)
           broadcast_event(create, delete, update)
           reload_plugins()
         end -- if
@@ -692,9 +692,10 @@ else
 
         manifest[dest] = {
         name = k,
-        hash = get_hash(dest),
+        hash = get_hash_file(dest),
         url = string.format("%s/%s", update_url, dest)
         } -- manifest
+ 
       end -- if
     end ) -- foreach
   end -- recursive_index
