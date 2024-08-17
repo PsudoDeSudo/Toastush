@@ -1,6 +1,8 @@
-`3.1.1
+`3.1.2
 
 
+  * Fixed various triggers in misc dealing with general sounds that did not work after a change of directories.
+  * Updated menu and prompt strings to trigger sound.
   * Increased priority level of public address communication trigger to avoid conflicts with the "say" trigger.
   * Bumped minor version number due to non-compatibility with version 3.0.
 

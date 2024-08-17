@@ -179,13 +179,13 @@ ImportXML([=[
    send_to="12"
    sequence="100"
   >
-  <send>play ("audio/paste.ogg")</send>
+  <send>mplay ("misc/paste")</send>
   </trigger>
 
   <trigger
    enabled="y"
    group="misc"
-   match="^\[Type a line of input or `@abort' to abort the command\.\]$"
+   match="^\[Type a line of input or '@abort' to abort the command\.\]$"
    regexp="y"
    send_to="12"
    sequence="75"
@@ -196,13 +196,25 @@ ImportXML([=[
   <trigger
    enabled="y"
    group="misc"
-   match="^(Invalid \w+.|>> Command Aborted <<|The \w+ is already moving\.|Those coordinates are occupied by this ship\.|Those coordinates are already locked\.)$"
+   match="^>> Command Aborted <<$"
    regexp="y"
    send_to="12"
    sequence="100"
   >
-  <send>play ("audio/cancel.ogg")</send>
+  <send>mplay ("misc/cancel")</send>
   </trigger>
+
+  <trigger
+   enabled="y"
+   group="misc"
+   match="^Invalid \w+\.$"
+   regexp="y"
+   send_to="12"
+   sequence="100"
+  >
+  <send>mplay ("misc/cancel")</send>
+  </trigger>
+
 
   <trigger
    enabled="y"
