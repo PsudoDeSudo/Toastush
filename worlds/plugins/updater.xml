@@ -89,7 +89,7 @@
   >
   <send>
    print("Generating index. Please wait.")
-   local e = generate_index("%0")
+   local e = generate_index("%1")
 
    if (e == 1) then
      print("Index file successfully created.")
@@ -116,7 +116,11 @@ download_size_limit = 20
 update_url = "https://raw.githubusercontent.com/PsudoDeSudo/Toastush/main"
 index_file = "index-v5.manifest"
 check_update_url = string.format("%s/%s", update_url, index_file)
-index = utils.split(index_file, ".")
+indexf = utils.split(index_file, ".")
+plugins = GetInfo(60)
+homedir = GetInfo(64)
+sounds = GetInfo(74)
+
 
 -- include all directories for the indexer to check here.
 -- include in the following format,
@@ -124,12 +128,13 @@ index = utils.split(index_file, ".")
 
 
 update_dir = {
-  [GetInfo(64)..index[1]] = "."..index[2],
-  [GetInfo(60).."updater"] = ".xml",
-  [GetInfo(60).."toastush"] = ".xml",
-  [GetInfo(74).."miriani/"] = ".ogg",
-  ["lua/miriani/"] = ".lua",
-  ["lua/miriani/"] = ".txt",
+  [homedir..indexf[1]] = "."..indexf[2],
+  [plugins.."updater"] = ".xml",
+  [plugins.."toastush"] = ".xml",
+  [sounds.."miriani/"] = ".ogg",
+  [homedir.."lua/miriani/scripts/"] = ".lua",
+  [homedir.."lua/miriani/"] = ".txt",
+
 
 }
 
@@ -175,15 +180,6 @@ end -- OnHelp
 
 
 function detect_updates(name, line, wc)
-
-  local path = require("pl.path")
-
-  if not path.isfile(index_file) then
-    if (not option_flags.errors) then
-      print("> Error: No index '"..index_file.."' - Cannot begin update.")
-    end -- if
-    return 0
-  end -- if
 
   local options = parse_options(wc[1])
 
@@ -282,7 +278,7 @@ function checksum(url, options)
 
   if (not path.isfile(GetInfo(64)..index_file)) then
     local e = generate_index(index_file)
-    if (not options.errors) then
+    if (not options.errors) and e == 0 then
       print("Error: Unable to generate the index file.")
     end -- if
 
@@ -684,7 +680,6 @@ function generate_index(file)
         local sub_dir = utils.readdir(ph..k.."/*")
         recursive_index(sub_dir, ph..k.."/", ex)
       end -- if
-
       if path.extension(k) == ex then
 
 
@@ -706,7 +701,10 @@ else
 
   for ph, ext in pairs(update_dir) do
     dir = utils.readdir(ph.."*")
-    recursive_index(dir, ph, ext)
+
+    if dir then
+      recursive_index(dir, ph, ext)
+    end -- if
 
   end -- for
 
