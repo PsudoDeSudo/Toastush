@@ -1,5 +1,7 @@
-`3.1.0
+`3.1.1
 
+
+  * Increased priority level of public address communication trigger to avoid conflicts with the "say" trigger.
   * Bumped minor version number due to non-compatibility with version 3.0.
 
 Version 3.0
