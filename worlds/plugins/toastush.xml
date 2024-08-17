@@ -409,7 +409,6 @@ function OnPluginBroadcast(event, id, name, text)
 
   if (id == UPDATE_ID) then
     -- update detected.
-    gen_index(event, text, {INDEX})
 
     local info = json.decode.decode(text)
 

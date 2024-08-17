@@ -1,6 +1,6 @@
 -- Defines shared constants across Miriani plugins.
 
-VERSION = "3.0"
+VERSION = "3.1"
 EXTENSION = ".ogg"
 ALT_EXTENSION = ".ogg"
 SOUNDPATH = "miriani/"
@@ -10,14 +10,14 @@ UPDATE_ID = "508bd88f4d441f81466bf471"
 INDEX = "index-v5.manifest"
 DISCORD = "https://discord.gg/rpqbjd8bTt"
 PROXIANI = "https://github.com/dwog/proxiani"
-UPDATE_URL = "https://erosso.net/projects/files/toastush"
+UPDATE_URL = "https://raw.githubusercontent.com/PsudoDeSudo/Toastush/main"
 IDLE_CUTOFF = 1200
 
 
 
 
 
-------------------------------
+
 
 -- sound groups to disable:
 

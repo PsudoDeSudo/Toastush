@@ -75,7 +75,7 @@ ImportXML([=[
   <trigger
    enabled="y"
    group="comm"
-  match="^((?:[A-Za-z0-9]{1}+)(?:[\w'! ]+) (say|ask|exclaim)s?,? ?(?:.+? )?)(&quot;.+?&quot;)$"
+   match="^((?:[A-Za-z0-9]{1}+)(?:[\w'! ]+) (say|ask|exclaim)s?,? ?(?:.+? )?)(&quot;.+?&quot;)$"
    regexp="y"
    send_to="14"
    omit_from_output="y"

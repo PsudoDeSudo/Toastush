@@ -17,7 +17,7 @@
    purpose="In line updater for Toastush."
    date_written="2022-01-30 04:49:37"
    requires="5.05"
-   version="2.5"
+   version="2.6"
    >
    <description trim="y">
 
@@ -82,11 +82,21 @@
 
   <alias
    enabled="y"
-   script="generate_index"
    match="^index (.+?)$"
    ignore_case="y"
    regexp="y"
+   send_to="12"
   >
+  <send>
+   print("Generating index. Please wait.")
+   local e = generate_index("%0")
+
+   if (e == 1) then
+     print("Index file successfully created.")
+   else
+     print("Unable to generate the index file.")
+   end -- if
+  </send>
   </alias>
 
 </aliases>
@@ -97,31 +107,40 @@
 
 -------------------------
 -- static -- 
+-- Update the following variables
 
-tfile = nil
-download_status = nil
 delay = 0.5
-update_url = "https://raw.githubusercontent.com/PsudoDeSudo/Toastush/main"
-index_file = "index-v5.manifest"
-check_update_url = string.format("%s/%s", update_url, index_file)
-
-
-
 timeout = 30
 download_size_limit = 20
 
--- include all filepathf or the indexer to check here.
+update_url = "https://raw.githubusercontent.com/PsudoDeSudo/Toastush/main"
+index_file = "index-v5.manifest"
+check_update_url = string.format("%s/%s", update_url, index_file)
+index = utils.split(index_file, ".")
+
+-- include all directories for the indexer to check here.
 -- include in the following format,
 -- directory, file-extension
 
 
-directoriesupdate_url = {
+update_dir = {
+  [GetInfo(64)..index[1]] = "."..index[2],
+  [GetInfo(60).."updater"] = ".xml",
   [GetInfo(60).."toastush"] = ".xml",
   [GetInfo(74).."miriani/"] = ".ogg",
   ["lua/miriani/"] = ".lua",
   ["lua/miriani/"] = ".txt",
 
 }
+
+
+
+-----------------
+-- Do not edit these variables unless you have reason for it.
+
+tfile = nil
+download_status = nil
+
 
 option_flags = {
   ["^--verbose$"] = "verbose",   ["^-v$"] = "verbose",
@@ -142,6 +161,8 @@ function OnPluginInstall()
   wait = assert(require("wait"))
   async_ok, async = pcall(require, "async")
 end -- OnPluginInstall
+
+
 
 function OnHelp(name, line, wc)
   print(GetPluginInfo(GetPluginID(), 3))
@@ -228,7 +249,7 @@ function detect_updates(name, line, wc)
 
         else -- Execute
 
-          local create_count, update_count = download_updates(create, update, options)
+           local create_count, update_count = download_updates(create, update, options)
           local delete_count = delete_unindexed_files(delete, options)
 
           print(
@@ -257,6 +278,16 @@ end -- detect_updates
 
 -- @coroutine
 function checksum(url, options)
+  local path = require("pl.path")
+
+  if (not path.isfile(GetInfo(64)..index_file)) then
+    local e = generate_index(index_file)
+    if (not options.errors) then
+      print("Error: Unable to generate the index file.")
+    end -- if
+
+
+  end -- if
   local local_hash = get_hash_file(index_file)
 
   if options.verbose then
@@ -447,6 +478,7 @@ function broadcast_event(create, delete, update)
   return ok
 end -- broadcast_event
 
+
 function reload_plugins()
 
   local pid = GetPluginID()
@@ -633,14 +665,14 @@ function write_file(filename, manifest)
   end -- if
 end -- write_file
 
-function generate_index(name, line, wc)
-  print("Generating index...")
+function generate_index(file)
   local path = require("pl.path")
   local json = require("json.encode")
   -- create an index for the updater.
   -- Users won't have to call this unless they are maintaining their own package.
 
-  local filename = wc[1]
+  local ok
+  local filename = file or index_file
    local manifest = {}
 
   local function recursive_index(dir, ph, ex)
@@ -656,20 +688,25 @@ function generate_index(name, line, wc)
       if path.extension(k) == ex then
 
 
-        dest = string.gsub(path.relpath(ph), "\\", "/").."/"
+        local dest = string.gsub(path.relpath(ph), "\\", "/")
+        if (path.isfile(dest..ex)) then
+          dest = dest..ex
+else
+          dest = dest.."/"..k
+        end -- if
 
-        manifest[dest..k] = {
+        manifest[dest] = {
         name = k,
-        hash = get_hash(dest..k),
-        url = string.format("%s/%s", update_url, dest..k)
+        hash = get_hash(dest),
+        url = string.format("%s/%s", update_url, dest)
         } -- manifest
       end -- if
     end ) -- foreach
   end -- recursive_index
 
-  for filepath, extension in pairs(directoriesupdate_url) do
-    content = utils.readdir(filepath.."*")
-    recursive_index(content, filepath, extension)
+  for ph, ext in pairs(update_dir) do
+    dir = utils.readdir(ph.."*")
+    recursive_index(dir, ph, ext)
 
   end -- for
 
@@ -677,11 +714,13 @@ function generate_index(name, line, wc)
 
   local e = write_file(filename, serialized)
   if (e) then
-    print("Index file successfully generated.")
+    ok = 1
   else
-    print("Failed to generate the index file.")
+    ok = 0
   end -- if
-end -- gen_index
+
+  return ok
+end -- generate_index
 
 ]]>
 </script>
