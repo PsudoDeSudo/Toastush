@@ -1,4 +1,4 @@
--- @module mcp-client
+-- @module mcp_client
 -- Implements a Mud Client Protocol (MCP) client.
 -- Specifications are accurate to versions 2.1 
 -- Implements mcp-negotiate package 2.0
@@ -6,45 +6,62 @@
 -- See 'https://www.moo.mud.org/mcp/mcp2.html`
 
 -- Author: Erick Rosso
--- Last updated 2022.16.21
 
 ---------------------------------------------
 
 local class = require("pl.class")
 
-class.Mcp()
+class.MCP()
 
-Mcp.packages = {
-  ["mcp-negotiate"] = {min=1.0, max=2.0},
-  ["mcp-cord"] = {min=1.0, max=2.0}
+MCP.packages = {
+  ["mcp-negotiate"] = {min_version = 1.0, max_version = 2.0},
+  ["mcp-cord"] = {min_version = 1.0, max_version = 2.0}
 }
 
-Mcp.const = {
-  authkey = "",
+MCP.constants = {
+  auth_key = "",
   min_version = 2.1,
   max_version = 2.1
 }
 
-function Mcp:register()
-
+function MCP:generate_auth_key()
   math.randomseed(os.time())
-  for i=1, math.random(10, 15) do
-    self.const.authkey = self.const.authkey..string.char(math.random(48, 122)) -- Generate random string.
-  end -- for
+  local key = {}
+  for _ = 1, math.random(10, 15) do
+    table.insert(key, string.char(math.random(48, 122))) -- Generate random string.
+  end
+  self.constants.auth_key = table.concat(key)
+end
 
-  local send_world = {string.format("#$#mcp authentication-key: %s version: %s to: %s", self.const.authkey, self.const.min_version, self.const.max_version)}
+function MCP:register()
+  self:generate_auth_key()
+
+  local messages = {
+    string.format("#$#mcp authentication-key: %s version: %.1f to: %.1f", 
+    self.constants.auth_key, self.constants.min_version, self.constants.max_version)
+  }
 
   -- mcp-negotiate package specifications.
-  for k,v in pairs(self.packages) do
-    send_world[#(send_world)+1] = string.format("#$#mcp-negotiate-can %s package: %s min-version: %s max-version: %s", self.const.authkey, k, v.min, v.max)
-  end -- for
+  for package_name, versions in pairs(self.packages) do
+    table.insert(messages, string.format(
+      "#$#mcp-negotiate-can %s package: %s min-version: %.1f max-version: %.1f", 
+      self.constants.auth_key, package_name, versions.min_version, versions.max_version))
+  end
 
   -- Conclude mcp-negotiate packages.
-  send_world[#(send_world)+1] = string.format("#$#mcp-negotiate-end %s", self.const.authkey)
+  table.insert(messages, string.format("#$#mcp-negotiate-end %s", self.constants.auth_key))
 
-  table.foreach(send_world, function(k,v) Send(v) end)
+  for _, message in ipairs(messages) do
+    Send(message)
+  end
 
   return 0 -- ok
-end -- register
+end
 
-return Mcp
+function MCP:handle_message(message)
+  -- For now, simply print the incoming message
+  print("MCP Message Received: ", message)
+end
+
+
+return MCP

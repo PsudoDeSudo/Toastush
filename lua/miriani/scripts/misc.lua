@@ -468,7 +468,7 @@ ImportXML([=[
   <trigger
    enabled="y"
    group="misc"
-   match="^\*{3} You have entered a starship simulator. To control the simulation, use the SIMULATE command. To exit, please type END\. \*{3}$"
+   match="^\*{3} You have entered a starship simulator\. To exit, please type END\. \*{3}$"
    regexp="y"
    send_to="12"
    sequence="100"
@@ -1014,6 +1014,46 @@ ImportXML([=[
    send_to="12"
   >
    <send>mplay("misc/coinSpin", "other")</send>
+  </trigger>
+
+  <trigger
+   enabled="y"
+   group="misc"
+   match="^.+? leans? over and drinks? noisily from .+?\.$"
+   regexp="y"
+   send_to="12"
+  >
+  <send>mplay("misc/slirp")</send>
+  </trigger>
+
+  <trigger
+   enabled="y"
+   group="misc"
+   match="^.+? climbs? the stairs and leaves? the pool\.$"
+   regexp="y"
+   send_to="12"
+  >
+  <send>mplay("misc/waterSlosh")</send>
+  </trigger>
+
+  <trigger
+   enabled="y"
+   group="misc"
+   match="^.+? skin begins to mottel and deform as several Borg implants emerge\.$"
+   regexp="y"
+   send_to="12"
+  >
+  <send>mplay("misc/morph")</send>
+  </trigger>
+
+  <trigger
+   enabled="y"
+   group="misc"
+   match="^Bolts of lightning fork from .+?'s fingertips and envelop .+?\.$"
+   regexp="y"
+   send_to="12"
+  >
+  <send>mplay("misc/shock")</send>
   </trigger>
 
 
