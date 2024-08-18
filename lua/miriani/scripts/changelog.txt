@@ -2,7 +2,7 @@
 
 
 
-  
+  * F1 now pulls up Toastush settings.  
   * Updated MCP implementation-- despite the fact that Miri doesn't seem to utilize it anymore.
   Its the thought that counts.
   * Added a sound for long range beacons detected by ship.

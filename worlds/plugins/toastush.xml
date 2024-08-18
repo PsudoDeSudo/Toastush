@@ -295,6 +295,7 @@ registry = "toastush"
 
 ---------------------
 -- Macros
+Accelerator('F1', 'toastush:config')
 AcceleratorTo ("F10", 'forward_cycle_audio_groups()', script) -- cycle forward sound groups.
 AcceleratorTo ("SHIFT+F10", 'previous_cycle_audio_groups()', script) -- cycle previous sound groups.
 
