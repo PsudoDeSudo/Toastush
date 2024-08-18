@@ -1,6 +1,7 @@
-`3.1.2
+`3.1.23
 
 
+  * Added keystroke F1 to access Toastush settings.
   * Fixed various triggers in misc dealing with general sounds that did not work after a change of directories.
   * Updated menu and prompt strings to trigger sound.
   * Increased priority level of public address communication trigger to avoid conflicts with the "say" trigger.

@@ -21,7 +21,7 @@
     Welcome to the Miriani MUSHclient soundpack: Toastush.
 ----------------------------------------
 
-    To get started with configuring the soundpack, type: `toastush:config or toastush:config [option]'
+    To get started with configuring the soundpack, press 'f1' or type: `toastush:config or toastush:config [option]'
     To view information about the currently running script type: `toastush:info'
     To view the changelog, type: `toastush:changes'
     To send the registration string, type: `toastush:register'
@@ -303,7 +303,7 @@ end -- for
 print_color({line, "info_foreground"})
 ]], script)
 
-
+Accelerator("F1", "toastush:config")
 
 
 

@@ -468,7 +468,7 @@ ImportXML([=[
   <trigger
    enabled="y"
    group="misc"
-   match="^\*{3} You have entered a starship simulator\. To exit, please type END\. \*{3}$"
+   match="^\*{3} You have entered a starship simulator. To control the simulation, use the SIMULATE command. To exit, please type END\. \*{3}$"
    regexp="y"
    send_to="12"
    sequence="100"
