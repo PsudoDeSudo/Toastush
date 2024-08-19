@@ -1056,6 +1056,35 @@ ImportXML([=[
   <send>mplay("misc/shock")</send>
   </trigger>
 
+  <trigger
+   enabled="y"
+   group="misc"
+   match="^.+? beeps quietly, indicating that there is a new file to import\.$"
+   regexp="y"
+   send_to="12"
+  >
+  <send>mplay("device/lore/import")</send>
+  </trigger>
+
+  <trigger
+   enabled="y"
+   group="misc"
+   match="^\(([0-9]+) seconds? (stun|roundtime)(?: time)?\.\)$"
+   regexp="y"
+   send_to="12"
+  >
+  <send>
+   local time = tonumber("%1")
+
+   if ("%2" == "stun") then
+     stuntime = stuntime + time
+   else
+     roundtime = roundtime + time
+   end -- if
+
+  </send>
+  </trigger>
+
 
 </triggers>
 ]=])

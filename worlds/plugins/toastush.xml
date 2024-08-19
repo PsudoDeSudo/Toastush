@@ -84,21 +84,44 @@
   >
   </timer>
 
+
   <timer
    enabled="y"
-   name="ping"
+   name="heartbeat"
    active_closed="y"
    hour="0"
-   second="20"
+   second="1"
    offset_second="0.00"
    send_to="14"
   >
   <send>
-   if (IsConnected()) then
-     Execute("#$#SOUNDPACK_PING")
+   heartbeat = heartbeat + 1
+   
+
+   if (roundtime &gt; 0) then
+    roundtime = roundtime - 1
    end -- if
+
+   if (stuntime &gt; 0) then
+    stuntime = stuntime - 1
+      end -- if
+
+show_stunlock(roundtime, stuntime)
+
+    if (IsConnected()) then 
+      if (heartbeat == ping_after_heartbeat) then
+             Execute("#$#SOUNDPACK_PING")
+      end -- if
+
+   end -- if
+
+   if (heartbeat &gt;= reset_heartbeat) then
+       heartbeat = 0
+   end -- if
+
 </send>
   </timer>
+
 
 
 
@@ -291,6 +314,11 @@ MSP, GMCP = 90, 201
 timeout = 120
 script = 12
 registry = "toastush"
+heartbeat = 0
+reset_heartbeat = 60
+ping_after_heartbeat = 30
+roundtime, stuntime = 0, 0
+
 
 
 ---------------------
@@ -304,16 +332,20 @@ AcceleratorTo("F11", 'decrease_attribute("volume")', script)
 AcceleratorTo("F12", 'increase_attribute("volume")', script)
 AcceleratorTo("ALT+SHIFT+U", 'open_url()', script)
 AcceleratorTo("ALT+SHIFT+A", [[
-notify("info", "Initializing audio settings...")
-initialize_audio()
-notify("info", "Audio settings initialized.")]], script)
+  notify("info", "Initializing audio settings...")
+  initialize_audio()
+  notify("info", "Audio settings initialized.")]], script)
 
 AcceleratorTo("ALT+SHIFT+I", [[
-local line = ""
-for k,v in pairs(infobar_t) do
-  line = line..v.." - "
-end -- for
-print_color({line, "info_foreground"})
+  local line = ""
+
+
+
+  for k,v in pairs(infobar_t) do
+    line = line..v.." - "
+  end -- for
+  notify("info", line, 1)
+
 ]], script)
 
 
@@ -743,7 +775,16 @@ end -- infobar
 function latency(name, line, wildcard)
   local ms = tonumber(wildcard[1]) or 0
   infobar("lag", string.format ("Latency: %d MS", ms))
-end -- Latency
+end -- latency
+
+function show_stunlock(roundtime, stuntime)
+  local roundtime = roundtime or 0
+  local stuntime = stuntime or 0
+  local stunlock = roundtime + stuntime
+  local sec = (stunlock == 1) and "second" or "seconds"
+
+  infobar("stunlock", string.format ("Stunlock: %d %s", stunlock, sec))
+end -- show_stunlock
 
 function help(name, line, wc)
   notify("info", string.format("%s", GetPluginInfo(GetPluginID(), 3)))

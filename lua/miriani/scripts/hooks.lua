@@ -143,7 +143,10 @@ ImportXML([=[
    send_to="12"
    sequence="100"
   >
-  <send>lore = string.lower("%1")</send>
+  <send>
+   lore = string.lower("%1")
+   mplay("device/lore/access")
+  </send>
   </trigger>
 
   <trigger
