@@ -1,6 +1,6 @@
 -- Defines shared constants across Miriani plugins.
 
-VERSION = "3.1.3"
+VERSION = "3.1.35"
 EXTENSION = ".ogg"
 ALT_EXTENSION = ".ogg"
 SOUNDPATH = "miriani/"

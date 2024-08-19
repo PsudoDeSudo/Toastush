@@ -60,7 +60,7 @@ end
 
 function MCP:handle_message(message)
   -- For now, simply print the incoming message
-  print("MCP Message Received: ", message)
+  -- print("MCP Message Received: ", message)
 end
 
 

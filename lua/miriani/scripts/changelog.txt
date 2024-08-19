@@ -1,7 +1,8 @@
-`3.1.31
+`3.1.35
 
 
 
+  * Fixed bug with initializing MCP. Apparently it exists after all!
   * More RP sounds.
   * F1 now pulls up Toastush settings.  
   * Updated MCP implementation-- despite the fact that Miri doesn't seem to utilize it anymore.
