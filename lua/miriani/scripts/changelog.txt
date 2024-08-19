@@ -1,7 +1,7 @@
-`3.1.35
+`3.1.36
 
 
-
+  * toastush:changes should now properly open the changelog.
   * Fixed bug with initializing MCP. Apparently it exists after all!
   * More RP sounds.
   * F1 now pulls up Toastush settings.  
@@ -135,3 +135,4 @@ Version 2.0
   * Various bug fixes from version 1.2 (too numerous to list).
   * Added the option to initialize audio as either stereo or mono.
   * Allow audio groups to be configured outside of secretpack.
+

@@ -306,7 +306,7 @@ show_stunlock(roundtime, stuntime)
 <![CDATA[
 require("json")
 
-scripts = "miriani/scripts/"
+scripts = "lua/miriani/scripts/"
 
 require(scripts.."init")
 
