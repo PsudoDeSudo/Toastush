@@ -1085,6 +1085,16 @@ ImportXML([=[
   </send>
   </trigger>
 
+  <trigger
+   enabled="y"
+   group="misc"
+   match="^In a fit of rage, you curl your face into a menacing snarl and hurl .+? with all of your might at .+?\. Of course you're a terrible shot so it comes nowhere close to hitting the target, but rather smashes into the nearest wall and shatters into a billion pieces\. Good effort\.$"
+   regexp="y"
+   send_to="12"
+  >
+  <send>mplay("misc/shatter")</send>
+  </trigger>
+
 
 </triggers>
 ]=])

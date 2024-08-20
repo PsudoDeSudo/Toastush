@@ -165,7 +165,7 @@ show_stunlock(roundtime, stuntime)
   <send>notify("info", "%0", 1)</send>
   </trigger>
   <trigger
-   enabled="y"
+   enabled="n"
    name="MCP"
    match="^#\$#mcp(-\w+)?(?:-(\w+))? (\S+)(?: (.*))?$"
    regexp="y"
@@ -173,9 +173,10 @@ show_stunlock(roundtime, stuntime)
    omit_from_output="y"
    omit_from_log="y"
   >
-  <send>MCP:handle_message("%1")</send>
+  <send>
+   MCP:handle_message("%0")
+  </send>
   </trigger>
-
 
 
 </triggers>

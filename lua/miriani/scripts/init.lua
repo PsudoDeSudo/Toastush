@@ -35,7 +35,7 @@ local namespace = {
   "hauling", -- asteroid hauling
   "salvaging", -- Atmospheric salvaging.
   "asteroid_mining", -- Asteroid mining.
-"mcp", -- MCP protocol
+-- "mcp", -- MCP protocol
 } -- namespace
 
 
