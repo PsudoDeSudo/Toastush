@@ -1081,6 +1081,15 @@ ImportXML([=[
   <send>mplay("misc/shatter")</send>
   </trigger>
 
+  <trigger
+   enabled="y"
+   group="misc"
+   match="^You receive [0-9,.]+ credits?, [0-9,.]+ points?, and [0-9,.]+ combat points? for the defense of .+?\.$"
+  regexp="y"
+   send_to="12"
+  >
+  <send>mplay("misc/cash")</send>
+  </trigger>
 
 </triggers>
 ]=])
