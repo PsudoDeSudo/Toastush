@@ -96,8 +96,13 @@
   >
   <send>
    heartbeat = heartbeat + 1
-   
 
+   if (config:get_option("roundtime").value == "yes") and 
+   (roundtime == 1) then
+    mplay("misc/roundtime")
+   end -- if round time
+
+   
    if (roundtime &gt; 0) then
     roundtime = roundtime - 1
    end -- if
@@ -107,6 +112,8 @@
       end -- if
 
 show_stunlock(roundtime, stuntime)
+
+
 
     if (IsConnected()) then 
       if (heartbeat == ping_after_heartbeat) then

@@ -108,20 +108,6 @@ ImportXML([=[
   </send>
   </trigger>
 
-  <trigger
-   enabled="y"
-   group="misc"
-   match="^\((\d+) seconds? roundtime\.\)$"
-   regexp="y"
-   send_to="12"
-   sequence="100"
-  >
-  <send>
-   if config:get_option("roundtime").value == "yes" then
-    DoAfterSpecial(tonumber("%1") - 0.7, 'mplay("misc/roundtime")', sendto.script)
-   end -- if round time
-  </send>
-  </trigger>
 
   <trigger
    enabled="y"
