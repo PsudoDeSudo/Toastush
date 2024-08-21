@@ -1,6 +1,7 @@
-`3.1.41
+`3.1.42
 
 
+  * Fixed filenames with cash.ogg files.
   * Renamed all misc/cash.ogg files to be lowercase. Not sure how they became capitalized.
   * toastush:changes should now properly open the changelog.
   * Fixed bug with initializing MCP. Apparently it exists after all!
