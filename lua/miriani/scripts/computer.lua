@@ -176,7 +176,7 @@ mplay("ship/computer/voice/unclear", "computer")
    if string.find("%1", "space station") then mplay ("ship/computer/station", "notification") end
    if string.find("%1", "anomaly") then mplay ("ship/computer/anomaly", "notification") end
    if string.find("%1", "wormhole") then mplay ("ship/computer/wormhole", "notification") end
-   if string.find("%1", "long-range communication beacon") then mplay ("ship/computer/beacon", "notification") end
+   if string.find("%1", "long%-range communication beacon") then mplay ("ship/computer/beacon", "notification") end
 
 
   </send>
