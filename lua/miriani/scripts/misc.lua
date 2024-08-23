@@ -1055,19 +1055,25 @@ ImportXML([=[
   <trigger
    enabled="y"
    group="misc"
-   match="^\(([0-9]+) seconds? (stun|roundtime)(?: time)?\.\)$"
+   match="^\((?:Another )?([0-9]+) seconds? (stun time|roundtime)\.\)$"
    regexp="y"
    send_to="12"
   >
   <send>
    local time = tonumber("%1")
+   local fade = 0.8
 
-   if ("%2" == "stun") then
+   if ("%2" == "stun time") then
+     if (stuntime &lt;= 0) then
+      ambianceFile = nil
+      mplay("ambiance/heartbeat", "ambiance", 1, nil, 1, 1, fade)
+
+     end -- if
      stuntime = stuntime + time
    else
      roundtime = roundtime + time
    end -- if
-
+    
   </send>
   </trigger>
 

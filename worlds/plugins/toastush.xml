@@ -109,11 +109,17 @@
 
    if (stuntime &gt; 0) then
     stuntime = stuntime - 1
+    if (stuntime &lt;= 0) then
+      if (environment) and (environment.line) then
+        replicate_line(environment.line)
+      else
+        stop("ambiance", nil, 1, 0.5)
+      end -- if
+    end -- if
+
       end -- if
 
-show_stunlock(roundtime, stuntime)
-
-
+show_paralyzed(roundtime, stuntime)
 
     if (IsConnected()) then 
       if (heartbeat == ping_after_heartbeat) then
@@ -785,14 +791,14 @@ function latency(name, line, wildcard)
   infobar("lag", string.format ("Latency: %d MS", ms))
 end -- latency
 
-function show_stunlock(roundtime, stuntime)
+function show_paralyzed(roundtime, stuntime)
   local roundtime = roundtime or 0
   local stuntime = stuntime or 0
-  local stunlock = roundtime + stuntime
-  local sec = (stunlock == 1) and "second" or "seconds"
+  local paralyzed = roundtime + stuntime
+  local sec = (paralyzed == 1) and "second" or "seconds"
 
-  infobar("stunlock", string.format ("Stunlock: %d %s", stunlock, sec))
-end -- show_stunlock
+  infobar("paralyzed", string.format ("paralyzed: %d %s", paralyzed, sec))
+end -- show_paralyzed
 
 function help(name, line, wc)
   notify("info", string.format("%s", GetPluginInfo(GetPluginID(), 3)))
@@ -897,8 +903,8 @@ function set_environment(name, line, wc)
     end ) -- foreach
   end -- for
 
-  -- ambiance callback
-  callback_playambiance(wc[#wc])
+  -- ambiance
+  ambiance(wc[#wc])
 end -- set_environment
 
 function playstep()
@@ -992,11 +998,13 @@ function playsocial(name, line, wc)
   mplay ("social/"..wc[2].."/"..social, "socials")
 end -- playsocial
 
-function callback_playambiance(roomtype)
+function ambiance(roomtype)
 
   if (not environment)
   or not focusWindow
   or (cameraFeed)
+  or (stuntime >= 1)
+
   or config:get_option("background_ambiance").value == "no" then
     return 0
   end -- if
