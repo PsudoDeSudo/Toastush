@@ -1,6 +1,8 @@
-`3.1.51
+`3.1.52
 
 
+  * Added the ability for Toastush to prompt you with the update command when outdated.
+  Should hopefully keep people informed about updates.
   * Added a special ambiance for the awkward moments you are stunned and helpless.
   * Added the paralyzed clock to the info bar--or status bar. For screen reader users, press alt+shift+I to view.
   * Renamed all misc/cash.ogg files to be lowercase. Not sure how they became capitalized.

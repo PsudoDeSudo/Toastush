@@ -174,12 +174,14 @@ ImportXML([=[
      mplay("misc/update", "notification", 1)
    end -- if
 
-   if config:get_option("automatic_updates").value == "yes" then
-      if IsPluginInstalled(UPDATE_ID) then
-       Execute("update --quiet")
-     else
-       notify("important", "Missing updater.xml plugin. Cannot apply updates.")
+   if IsPluginInstalled(UPDATE_ID) then
+    Notify("info", "Updater detected: Type update to apply pending updates.")
+ 
+     if config:get_option("automatic_updates").value == "yes" then
+        Execute("update --quiet")
      end -- if
+   else
+     notify("important", "Missing updater.xml plugin. Unable to fetch updates.")
    end -- if
 
   </send>

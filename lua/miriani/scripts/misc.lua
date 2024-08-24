@@ -738,6 +738,16 @@ ImportXML([=[
   <trigger
    enabled="y"
    group="misc"
+   match="^.+? splash(?:es)? around in .+?\.$"
+   regexp="y"
+   send_to="12"
+  >
+  <send>mplay("misc/splash")</send>
+  </trigger>
+
+  <trigger
+   enabled="y"
+   group="misc"
    match="^.+? (?:falls?|crash(?:es)?) to the water with a splash!$"
    regexp="y"
    send_to="12"
@@ -1111,6 +1121,26 @@ ImportXML([=[
    send_to="12"
   >
   <send>mplay("misc/cash")</send>
+  </trigger>
+
+  <trigger
+   enabled="y"
+   group="misc"
+   match="^.+? sits? down in the hot tub and relax(?:es)?\.$"
+   regexp="y"
+   send_to="12"
+  >
+  <send>mplay("misc/tub")</send>
+  </trigger>
+
+  <trigger
+   enabled="y"
+   group="misc"
+   match="^.+? gets? out of the hot tub\.$"
+   regexp="y"
+   send_to="12"
+  >
+  <send>mplay("misc/waterSlosh")</send>
   </trigger>
 
 </triggers>
