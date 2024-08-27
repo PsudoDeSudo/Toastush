@@ -1143,6 +1143,36 @@ ImportXML([=[
   <send>mplay("misc/waterSlosh")</send>
   </trigger>
 
+  <trigger
+   enabled="y"
+   group="misc"
+   match="^Teleporting you to .+?\.$"
+   regexp="y"
+   send_to="12"
+  >
+  <send>mplay("misc/hosts/arrive")</send>
+  </trigger>
+
+  <trigger
+   enabled="y"
+   group="misc"
+   match="^.+? turns? the faucets of .+? and water begins to fill the tub\.$"
+   regexp="y"
+   send_to="12"
+  >
+  <send>mplay("misc/fillBath")</send>
+  </trigger>
+
+  <trigger
+   enabled="y"
+   group="misc"
+   match="^The water quickly drains out of .+?, leaving it empty\.$"
+   regexp="y"
+   send_to="12"
+  >
+  <send>mplay("misc/drainBath")</send>
+  </trigger>
+ 
 </triggers>
 ]=])
 
