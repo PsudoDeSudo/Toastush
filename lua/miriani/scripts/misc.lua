@@ -1172,7 +1172,19 @@ ImportXML([=[
   >
   <send>mplay("misc/drainBath")</send>
   </trigger>
- 
+
+
+  <trigger
+   enabled="y"
+   group="misc"
+   match="^A creepy man sitting in a black leather chair says, &quot;Hello, Fleemco\.&quot;$" 
+   regexp="y"
+   send_to="12"
+  >
+  <send>mplay("misc/strange")</send>
+  </trigger>
+
+
 </triggers>
 ]=])
 

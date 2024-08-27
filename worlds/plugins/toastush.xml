@@ -660,16 +660,9 @@ function initialize_audio()
   end -- if
 
   assert(config:init(sp_options, audio_options) == 0)
-  -- stereo or mono:
-  local channels = config:get_option("audio_channel")
 
-  if (channel ~= nil)
-  or channels == {}
-  or channels == "no" then
-    channels = audio.const.device.mono
-  else -- stereo channels
-    channels = audio.const.device.stereo
-  end -- if
+  local channels = audio.const.device.stereo
+
 
   audio:Init(nil, nil, channels)
 

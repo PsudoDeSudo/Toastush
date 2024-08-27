@@ -1,6 +1,5 @@
 
 local options = {
-  audio_channel = {descr="Initialize audio with stereo output. Reload audio settings to apply changes.", value="no", group="general", type="bool"},
   automatic_changelog = {descr="Automatically open changelog after updates?", value="no", group="general", type="bool"},
   automatic_updates = {descr="Automatically apply updates quietly at login?", value="no", group="general", type="bool"},
   archaeology_helper_dig = {descr="Buried artifact digging tracker.", value="no", group="archaeology", type="bool"},
