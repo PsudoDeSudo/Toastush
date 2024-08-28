@@ -1,6 +1,7 @@
-`3.1.54
+`3.1.6
 
 
+  * Fixed stun/healing weapons firing at 100% volume.
   * Removed audio options prompting for stereo or mono.
   Audio is now always stereo.
   * Various RP related sounds. Mostly pertaining to water.

@@ -182,6 +182,18 @@ ImportXML([=[
   <trigger
    enabled="y"
    group="misc"
+   match="\[Enter &quot;yes&quot; or &quot;no&quot;\]$"
+   regexp="y"
+   send_to="12"
+   sequence="75"
+  >
+  <send>mplay("misc/prompt")</send>
+  </trigger>
+
+
+  <trigger
+   enabled="y"
+   group="misc"
    match="^>> Command Aborted <<$"
    regexp="y"
    send_to="12"

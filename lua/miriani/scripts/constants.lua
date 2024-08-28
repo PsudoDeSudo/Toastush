@@ -1,6 +1,6 @@
 -- Defines shared constants across Miriani plugins.
 
-VERSION = "3.1.5"
+VERSION = "3.1.6"
 EXTENSION = ".ogg"
 ALT_EXTENSION = ".ogg"
 SOUNDPATH = "miriani/"
@@ -9,7 +9,7 @@ TOASTUSH_ID = "843d2f53cb3685465bda7d4a"
 UPDATE_ID = "508bd88f4d441f81466bf471"
 INDEX = "index-v5.manifest"
 DISCORD = "https://discord.gg/rpqbjd8bTt"
-PROXIANI = "https://github.com/dwog/proxiani"
+PROXIANI = "https://github.com/PsudoDeSudo/proxiani"
 UPDATE_URL = "https://raw.githubusercontent.com/PsudoDeSudo/Toastush/main"
 IDLE_CUTOFF = 1200
 

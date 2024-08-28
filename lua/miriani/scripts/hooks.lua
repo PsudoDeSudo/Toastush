@@ -175,7 +175,7 @@ ImportXML([=[
    end -- if
 
    if IsPluginInstalled(UPDATE_ID) then
-    Notify("info", "Updater detected: Type update to apply pending updates.")
+    notify("info", "** Updater detected: You may type update to apply pending updates. **")
  
      if config:get_option("automatic_updates").value == "yes" then
         Execute("update --quiet")
@@ -220,11 +220,11 @@ ImportXML([=[
 
    if (outcome == "miss")
    or (outcome == "unloaded") then
-   mplay("combat/"..outcome, "combat")
+   mplay("combat/"..outcome, "melee")
    else
-   mplay("combat/guns/"..weapon, "combat")
+   mplay("combat/guns/"..weapon, "melee")
 
-   mplay("combat/"..action.."/"..outcome, "combat")
+   mplay("combat/"..action.."/"..outcome, "melee")
    end -- if
 
   </send>
