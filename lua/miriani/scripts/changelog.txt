@@ -1,6 +1,7 @@
-`3.1.6
+`3.1.61
 
 
+  * Fixed starship relay buffer capturing only name.
   * Fixed stun/healing weapons firing at 100% volume.
   * Removed audio options prompting for stereo or mono.
   Audio is now always stereo.

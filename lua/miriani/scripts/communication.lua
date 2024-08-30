@@ -339,7 +339,7 @@ print_color({prefix, "default"}, {"%2", "pub_comm"})
     print_color({"%1 ", "default"}, {"%3", "priv_comm"})
     end -- if
 
-   channel(name, "[%1] %2", {"ship", "communication"})
+   channel(name, "[%1] %3", {"ship", "communication"})
   </send>
   </trigger>
 
