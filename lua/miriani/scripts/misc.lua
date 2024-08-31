@@ -1196,6 +1196,19 @@ ImportXML([=[
   <send>mplay("misc/strange")</send>
   </trigger>
 
+  <trigger
+   enabled="y"
+   group="misc"
+   script="gagline"
+   match="^You activate .+? planetary surveyor and begin scanning the area\.$"
+   regexp="y"
+   omit_from_output="y"
+   send_to="12"
+  >
+  <send>
+   mplay("device/surveyer")
+  </send>
+  </trigger>
 
 </triggers>
 ]=])

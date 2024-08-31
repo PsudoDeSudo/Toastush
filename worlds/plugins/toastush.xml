@@ -979,10 +979,16 @@ end -- playstep
 function playsocial(name, line, wc)
   -- Try to match social to file
   -- Game shortens the social text depending on what user typed.
+  -- Randomly assign gender if nonbinary.
+  if wc[2] == "nonbinary" then
+    local genders = {"male","female"}
+    wc[2] = genders[math.random(2)]
+    end
+
   local socialtable = utils.readdir(config:get("SOUND_DIRECTORY")..SOUNDPATH.."social/"..wc[2].."/"..wc[1].."*"..EXTENSION) 
   -- check that table exists
   if type(socialtable) ~= 'table' then
-    --Use a recursive check to find file in nuter directory.
+
     if wc[2] ~= "neuter" then
       wc[2] = "neuter"
 
