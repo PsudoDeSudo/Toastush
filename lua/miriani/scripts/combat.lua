@@ -473,7 +473,7 @@ ImportXML([=[
    if "%4" == "No available weapons-grade bardenium." then
     cannonShots = 0
    else
-    cannonShots = (tonumber("%6") / numberOfCannons)
+    cannonShots = math.ceil(tonumber("%6") / numberOfCannons)
    end -- if
 print("Shots Remaining: "..cannonShots)
 

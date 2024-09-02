@@ -797,8 +797,12 @@ function show_paralyzed(roundtime, stuntime)
   local stuntime = stuntime or 0
   local paralyzed = roundtime + stuntime
   local sec = (paralyzed == 1) and "second" or "seconds"
-
-  infobar("paralyzed", string.format ("paralyzed: %d %s", paralyzed, sec))
+  local id = "paralyzed"
+  if (paralyzed > 0) then
+  infobar(id, string.format ("paralyzed: %d %s", paralyzed, sec))
+  else
+    infobar_t[id] = nil
+  end
 end -- show_paralyzed
 
 function help(name, line, wc)
