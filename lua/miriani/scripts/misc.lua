@@ -1118,7 +1118,7 @@ ImportXML([=[
   <trigger
    enabled="y"
    group="misc"
-   match="^In a fit of rage, you curl your face into a menacing snarl and hurl .+? with all of your might at .+?\. Of course you're a terrible shot so it comes nowhere close to hitting the target, but rather smashes into the nearest wall and shatters into a billion pieces\. Good effort\.$"
+   match="^In a fit of rage, .+? curls? \w+ face into a menacing snarl and hurls? .+? with all of \w+ might at .+? (?:Of course you're a terrible shot so it comes nowhere close to hitting the target, but rather smashes into the nearest wall and|where it misses by a mile and slams into the nearest wall,) shatter(?:s|ing) into a billion pieces\.(?: Good effort\.)?$"
    regexp="y"
    send_to="12"
   >
@@ -1203,12 +1203,39 @@ ImportXML([=[
    match="^You activate .+? planetary surveyor and begin scanning the area\.$"
    regexp="y"
    omit_from_output="y"
-   send_to="12"
+   send_to="14"
   >
   <send>
    mplay("device/surveyer")
   </send>
   </trigger>
+
+  <trigger
+   enabled="y"
+   group="misc"
+   script="gagline"
+   match="^The hatch refuses to accept your access code\.$"
+   regexp="y"
+   send_to="12"
+  >
+  <send>
+   mplay("misc/deny")
+  </send>
+  </trigger>
+
+  <trigger
+   enabled="y"
+   group="misc"
+   match="^You feel a tingly sensation and notice that you are not what you were!$"
+   regexp="y"
+   send_to="12"
+  >
+  <send>
+   mplay("misc/morph")
+  </send>
+  </trigger>
+
+
 
 </triggers>
 ]=])
